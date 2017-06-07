@@ -1,0 +1,241 @@
+<!--责任追究  公开通报-->
+
+<div class="panel panel-default" style="margin-bottom: 0">
+    <div style="padding-top: 5px;padding-bottom: 5px" class="panel-heading">
+        <h4>公开通报</h4>
+    </div>
+    <div style="height:470px" class="panel-body">
+            <div class="form-group ">
+                <label class="col-xs-2 control-label">被通报人:</label>
+                <div class="col-xs-3">
+                    <input type="text" class="form-control" ng-model="o.staff" placeholder="Name">
+                </div>
+                <div class="col-xs-1">
+                    <button type="submit" class="btn btn-default" ng-click="search()">查询</button>
+                </div>
+                <div class="col-xs-1 col-xs-offset-4">
+                    <button data-toggle="modal" data-target="#ModalAdd" type="button" class="btn btn-primary" ng-click="add()">添加</button>
+                </div>
+                <div class="clear"></div>
+            </div>
+        <div class="modal fade" id="ModalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="ModalOKLabel">添加公开通报</h4>
+                    </div>
+                    <form class="form-horizontal" role="form" name="notificationAdd" novalidate>
+                        <div class="modal-body">
+                            <div class="form-group" ng-class="{'has-error':notificationAdd.$submitted&&notificationAdd.title.$error.required}">
+                                <div class="col-xs-2 text-center"><label class="control-label">标题:</label></div>
+                                <div class="col-xs-10"><input name="title" required ng-model="addO.title" class="form-control" type="text"/></div>
+                            </div>
+                            <br><br>
+                            <div class="form-group" ng-class="{'has-error':notificationAdd.$submitted&&notificationAdd.staff.$error.required}">
+                                <div class="col-xs-2 text-center"><label class="control-label">人员:</label></div>
+                                <div class="col-xs-10"><input name="staff" required ng-model="addO.staff" class="form-control" type="text"/></div>
+                            </div>
+                            <br><br>
+                            <div class="form-group">
+                                <div  class="col-xs-2 text-center"><label class="control-label">部门:</label></div>
+                               <div class="col-xs-10">
+                                <select class="form-control " ng-change="orgIdSelect(orgIdOptions)" ng-model="orgIdOptions" ng-options="(o.children?('--'+o.name):(o.name)) for o in orgIdArr"></select>
+                            </div>
+                            </div>
+                            <br><br>
+                            <div class="form-group" ng-class="{'has-error':notificationAdd.$submitted&&notificationAdd.content.$error.required}">
+                                <div class="col-xs-2  text-center"><label class="control-label">内容:</label></div>
+                                <div class="col-xs-10"><textarea name="content" required ng-model="addO.content" class="form-control" rows="3"></textarea></div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-default" ng-click="addOk()" data-dismiss="{{notificationAdd.$invalid?'':'modal'}}">确定</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="tab">
+                <table class="table table-striped table-bordered text-center" id="dataTable" >
+                    <thead >
+                    <tr>
+                        <td>
+                            <div class="btn-group">
+                                <a>被通报人:</a>
+                                <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                                   aria-expanded="false">
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li ng-click="order('staff',1)"><a>正序</a></li>
+                                    <li ng-click="order('staff',-1)"><a>倒序</a></li>
+                                    <li class="dropdown-submenu"><a href="#">列</a>
+                                        <ul class="dropdown-menu pull-right">
+                                            <li><input type="checkbox">被通报的人</li>
+                                            <li><input type="checkbox">被通报人的部门</li>
+                                            <li><input type="checkbox">标题</li>
+                                            <li><input type="checkbox">时间</li>
+                                            <li><input type="checkbox">action</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="btn-group">
+                                <a>被通报人部门:</a>
+                                <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                                   aria-expanded="false">
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li ng-click="order('staffOrgName',1)"><a>正序</a></li>
+                                    <li ng-click="order('staffOrgName',-1)"><a>倒序</a></li>
+                                    <li class="dropdown-submenu"><a href="#">列</a>
+                                        <ul class="dropdown-menu pull-right">
+                                            <li><input type="checkbox">被通报的人</li>
+                                            <li><input type="checkbox">被通报人的部门</li>
+                                            <li><input type="checkbox">标题</li>
+                                            <li><input type="checkbox">时间</li>
+                                            <li><input type="checkbox">action</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="btn-group">
+                                <a>标题</a>
+                                <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                                   aria-expanded="false">
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li ng-click="order('title',1)"><a>正序</a></li>
+                                    <li ng-click="order('title',-1)"><a>倒序</a></li>
+                                    <li class="dropdown-submenu"><a href="#">列</a>
+                                        <ul class="dropdown-menu pull-right">
+                                            <li><input type="checkbox">被通报的人</li>
+                                            <li><input type="checkbox">被通报人的部门</li>
+                                            <li><input type="checkbox">标题</li>
+                                            <li><input type="checkbox">时间</li>
+                                            <li><input type="checkbox">action</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="btn-group">
+                                <a>时间</a>
+                                <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                                   aria-expanded="false">
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li ng-click="order('createTime',1)"><a>正序</a></li>
+                                    <li ng-click="order('createTime',-1)"><a>倒序</a></li>
+                                    <li class="dropdown-submenu"><a href="#">列</a>
+                                        <ul class="dropdown-menu pull-right">
+                                            <li><input type="checkbox">被通报的人</li>
+                                            <li><input type="checkbox">被通报人的部门</li>
+                                            <li><input type="checkbox">标题</li>
+                                            <li><input type="checkbox">时间</li>
+                                            <li><input type="checkbox">action</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="btn-group">
+                                <a>操作</a>
+                                <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                                   aria-expanded="false">
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a>正序</a></li>
+                                    <li><a>倒序</a></li>
+                                    <li class="dropdown-submenu"><a href="#">列</a>
+                                        <ul class="dropdown-menu pull-right">
+                                            <li><input type="checkbox">被通报的人</li>
+                                            <li><input type="checkbox">被通报人的部门</li>
+                                            <li><input type="checkbox">标题</li>
+                                            <li><input type="checkbox">时间</li>
+                                            <li><input type="checkbox">action</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="v in arr">
+                        <td ng-bind="v.staff"></td>
+                        <td ng-bind="v.staffOrgName"></td>
+                        <td ng-bind="v.title"></td>
+                        <td ng-bind="v.createTime"></td>
+                        <td>
+                            <button data-toggle="modal" data-target="#ModalUpdate"   class="btn btn-xs btn-primary" ng-click="update(v.id)">修改</button>
+                            <button  class="btn btn-xs btn-danger" ng-click="del(v.id)">删除</button>
+                        </td>
+                        <div class="modal fade" id="ModalUpdate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title">修改公开通报</h4>
+                                    </div>
+                                    <form class="form-horizontal" role="form" name="notificationUpdate" novalidate>
+                                        <div class="modal-body">
+                                            <div class="form-group" ng-class="{'has-error':notificationUpdate.$submitted&&notificationUpdate.title.$error.required}">
+                                                <div class="col-xs-2 text-center"><label class="control-label">标题:</label></div>
+                                                <div class="col-xs-10"><input name="title" required ng-model="getNotificationInfo.title" class="form-control" type="text"/></div>
+                                            </div>
+                                            <br><br>
+                                            <div class="form-group" ng-class="{'has-error':notificationUpdate.$submitted&&notificationUpdate.staff.$error.required}">
+                                                <div class="col-xs-2 text-center"><label class="control-label">人员:</label></div>
+                                                <div class="col-xs-10"><input name="staff" required ng-model="getNotificationInfo.staff" class="form-control" type="text"/></div>
+                                            </div>
+                                            <br><br>
+                                            <div class="form-group">
+                                                <div class="col-xs-2 text-center"><label class="control-label">部门:</label></div>
+                                                <div class="col-xs-10">
+                                                <select class="form-control " ng-change="orgIdSelect(orgIdOptions)" ng-model="orgIdOptions" ng-options="(o.children?('--'+o.name):(o.name)) for o in orgIdArr"></select>
+                                                </div>
+                                            </div>
+                                            <br><br>
+                                            <div class="form-group" ng-class="{'has-error':notificationUpdate.$submitted&&notificationUpdate.content.$error.required}">
+                                                <div class="col-xs-2  text-center"><label class="control-label">内容:</label></div>
+                                                <div class="col-xs-10"><textarea name="content" required ng-model="getNotificationInfo.content" class="form-control" rows="3"></textarea></div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-default" ng-click="updateOK(v.id)" data-dismiss="{{notificationUpdate.$invalid?'':'modal'}}">确定</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </tr>
+                    </tbody>
+                </table>
+        </div>
+
+    </div>
+    <div class="panel-footer">
+        <span>
+        <i class="btn fa fa-step-backward fa-lg fa-fw" ng-click="firstPage()"></i>
+        <i class="btn fa fa-caret-left fa-lg fa-fw" ng-click="prePage()"></i>
+        &nbsp  | &nbsp 第 {{o.page}} 页，共{{pageSum}}页 &nbsp | &nbsp
+        <i class="btn fa fa-caret-right fa-lg fa-fw" ng-click="nextPage()"></i>
+        <i class="btn fa fa-step-forward fa-lg fa-fw" ng-click="lastPage()"></i>
+        &nbsp | &nbsp
+        <i class="btn fa fa-refresh fa-lg fa-fw" ng-click="refreshPage()"></i>
+        </span>
+        <span class="pull-right">显示{{1+(o.page-1)*9}}-{{o.page*o.limit}}条，共{{total}}条</span>
+    </div>
+</div>

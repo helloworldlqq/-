@@ -1,0 +1,252 @@
+<div class="panel panel-default" style="margin-bottom: 0">
+    <div style="padding-top: 5px;padding-bottom: 5px" class="panel-heading">
+        <h4>精确查询</h4>
+    </div>
+    <div style="height:470px" class="panel-body">
+        <form class="form-inline">
+            <div class="form-group">
+                <label for="exampleInputName2">申报人：</label>
+                <input type="text" class="form-control" id="exampleInputName2" placeholder="Name" ng-model="accurateUserName">
+            </div>
+            <div class="form-group">
+                <select class="form-control" ng-model="select" ng-options="select.id as select.name for select in accurateSelect">
+                    <!--<opcion ng-model="select" value="1">根组织</opcion>-->
+
+
+                </select>
+            </div>
+            <button type="submit" class="btn btn-default" ng-click="accurateGet()">查询</button>
+        </form>
+        <br>
+        <table class="table table-striped table-bordered text-center">
+            <thead>
+            <tr>
+                <td>
+                    <div class="btn-group">
+                        <a>申报人</a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                           aria-expanded="false">
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li ng-click="order('staff',1)"><a>正序</a></li>
+                            <li ng-click="order('staff',-1)"><a>倒序</a></li>
+                            <li class="dropdown-submenu"><a href="#">列</a>
+                                <ul class="dropdown-menu pull-right">
+                                    <li><input type="checkbox">申报人</li>
+                                    <li><input type="checkbox">部门</li>
+                                    <li><input type="checkbox">类型</li>
+                                    <li><input type="checkbox">人数</li>
+                                    <li><input type="checkbox">申报时间</li>
+                                    <li><input type="checkbox">宴请时间</li>
+                                    <li><input type="checkbox">状态</li>
+                                    <li><input type="checkbox">action</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+                <td>
+                    <div class="btn-group">
+                        <a>部门</a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                           aria-expanded="false">
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li ng-click="order('staffOrgName',1)"><a>正序</a></li>
+                            <li ng-click="order('staffOrgName',-1)"><a>倒序</a></li>
+                            <li class="dropdown-submenu"><a href="#">列</a>
+                                <ul class="dropdown-menu pull-right">
+                                    <li><input type="checkbox">申报人</li>
+                                    <li><input type="checkbox">部门</li>
+                                    <li><input type="checkbox">类型</li>
+                                    <li><input type="checkbox">人数</li>
+                                    <li><input type="checkbox">申报时间</li>
+                                    <li><input type="checkbox">宴请时间</li>
+                                    <li><input type="checkbox">状态</li>
+                                    <li><input type="checkbox">action</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+                <td>
+                    <div class="btn-group">
+                        <a>类型</a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                           aria-expanded="false">
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li ng-click="order('eventType',1)"><a>正序</a></li>
+                            <li ng-click="order('eventType',-1)"><a>倒序</a></li>
+                            <li class="dropdown-submenu"><a href="#">列</a>
+                                <ul class="dropdown-menu pull-right">
+                                    <li><input type="checkbox">申报人</li>
+                                    <li><input type="checkbox">部门</li>
+                                    <li><input type="checkbox">类型</li>
+                                    <li><input type="checkbox">人数</li>
+                                    <li><input type="checkbox">申报时间</li>
+                                    <li><input type="checkbox">宴请时间</li>
+                                    <li><input type="checkbox">状态</li>
+                                    <li><input type="checkbox">action</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+                <td>
+                    <div class="btn-group">
+                        <a>人数</a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                           aria-expanded="false">
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li ng-click="order('peopleCount',1)"><a>正序</a></li>
+                            <li ng-click="order('peopleCount',-1)"><a>倒序</a></li>
+                            <li class="dropdown-submenu"><a href="#">列</a>
+                                <ul class="dropdown-menu pull-right">
+                                    <li><input type="checkbox">申报人</li>
+                                    <li><input type="checkbox">部门</li>
+                                    <li><input type="checkbox">类型</li>
+                                    <li><input type="checkbox">人数</li>
+                                    <li><input type="checkbox">申报时间</li>
+                                    <li><input type="checkbox">宴请时间</li>
+                                    <li><input type="checkbox">状态</li>
+                                    <li><input type="checkbox">action</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+                <td>
+                    <div class="btn-group">
+                        <a>申报时间</a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                           aria-expanded="false">
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li ng-click="order('createTime',1)"><a>正序</a></li>
+                            <li ng-click="order('createTime',-1)"><a>倒序</a></li>
+                            <li class="dropdown-submenu"><a href="#">列</a>
+                                <ul class="dropdown-menu pull-right">
+                                    <li><input type="checkbox">申报人</li>
+                                    <li><input type="checkbox">部门</li>
+                                    <li><input type="checkbox">类型</li>
+                                    <li><input type="checkbox">人数</li>
+                                    <li><input type="checkbox">申报时间</li>
+                                    <li><input type="checkbox">宴请时间</li>
+                                    <li><input type="checkbox">状态</li>
+                                    <li><input type="checkbox">action</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+                <td>
+                    <div class="btn-group">
+                        <a>宴请时间</a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                           aria-expanded="false">
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li ng-click="order('eventDate',1)"><a>正序</a></li>
+                            <li ng-click="order('eventDate',-1)"><a>倒序</a></li>
+                            <li class="dropdown-submenu"><a href="#">列</a>
+                                <ul class="dropdown-menu pull-right">
+                                    <li><input type="checkbox">申报人</li>
+                                    <li><input type="checkbox">部门</li>
+                                    <li><input type="checkbox">类型</li>
+                                    <li><input type="checkbox">人数</li>
+                                    <li><input type="checkbox">申报时间</li>
+                                    <li><input type="checkbox">宴请时间</li>
+                                    <li><input type="checkbox">状态</li>
+                                    <li><input type="checkbox">action</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+                <td>
+                    <div class="btn-group">
+                        <a>状态</a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                           aria-expanded="false">
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li ng-click="order('auditStatus',1)"><a>正序</a></li>
+                            <li ng-click="order('auditStatus',-1)"><a>倒序</a></li>
+                            <li class="dropdown-submenu"><a href="#">列</a>
+                                <ul class="dropdown-menu pull-right">
+                                    <li><input type="checkbox">申报人</li>
+                                    <li><input type="checkbox">部门</li>
+                                    <li><input type="checkbox">类型</li>
+                                    <li><input type="checkbox">人数</li>
+                                    <li><input type="checkbox">申报时间</li>
+                                    <li><input type="checkbox">宴请时间</li>
+                                    <li><input type="checkbox">状态</li>
+                                    <li><input type="checkbox">action</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+                <td>
+                    <div class="btn-group">
+                        <a>批示意见</a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                           aria-expanded="false">
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li ng-click="order('auditContent',1)"><a>正序</a></li>
+                            <li ng-click="order('auditContent',-1)"><a>倒序</a></li>
+                            <li class="dropdown-submenu"><a href="#">列</a>
+                                <ul class="dropdown-menu pull-right">
+                                    <li><input type="checkbox">申报人</li>
+                                    <li><input type="checkbox">部门</li>
+                                    <li><input type="checkbox">类型</li>
+                                    <li><input type="checkbox">人数</li>
+                                    <li><input type="checkbox">申报时间</li>
+                                    <li><input type="checkbox">宴请时间</li>
+                                    <li><input type="checkbox">状态</li>
+                                    <li><input type="checkbox">action</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="show in accurateShouList | limitTo: accurateNumber:accurateLimit">
+                <td ng-bind="show.staff"></td>
+                <td ng-bind="show.staffOrgName"></td>
+                <td ng-bind="{'1':'婚嫁','2':'丧葬'}[show.eventType]"></td>
+                <td ng-bind="show.peopleCount"></td>
+                <td ng-bind="show.createTime"></td>
+                <td ng-bind="show.eventDate"></td>
+                <td ng-bind="{'-1':'待审核','1':'通过','2':'拒绝'}[show.auditStatus]"></td>
+                <td ng-bind="show.auditContent"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="panel-footer">
+        <span>
+        <i class="btn fa fa-step-backward fa-lg fa-fw" ng-click="accurateFirst()"></i>
+        <i class="btn fa fa-caret-left fa-lg fa-fw" ng-click="accurateUp()"></i>
+        &nbsp  | &nbsp 第 {{accurateNowPage}} 页，共{{accuratePageTatal}}页 &nbsp | &nbsp
+       <i class="btn fa fa-caret-right fa-lg fa-fw" ng-click="accurateDown()"></i>
+        <i class="btn fa fa-step-forward fa-lg fa-fw" ng-click="accurateLast()"></i>
+        &nbsp | &nbsp
+        <i class="btn fa fa-refresh fa-lg fa-fw" ng-click="accuratePageBack()"></i>
+        </span>
+        <span class="pull-right">显示1-{{accurateNumber}}条，共{{accurateShouList.length}}条</span></div>
+</div>
+

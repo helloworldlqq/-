@@ -1,0 +1,43 @@
+
+<div class="panel panel-default" style="margin-bottom: 0">
+    <div style="padding-top: 5px;padding-bottom: 5px" class="panel-heading">
+        <h4>数据统计</h4>
+    </div>
+    <div style="height:470px" class="panel-body">
+        <form class="form-inline">
+            <div class="form-group">
+                <div class = "input-append date form_datetime">
+                    申报时间： <input type = "date" ng-model="createTimeFrom">
+                </div>
+
+            </div>
+            <div class="form-group">
+
+                <div class = "input-append date form_datetime">
+                    至： <input type = "date" ng-model="createTimeTo">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class = "input-append date form_datetime">
+                    宴请时间： <input type = "date" ng-model="timeFrom">
+                </div>
+
+            </div>
+            <div class="form-group">
+
+                <div class = "input-append date form_datetime">
+                    至： <input type = "date" ng-model="timeTo">
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn-primary" ng-click="dataQuery()">查询</button>
+            </div>
+        </form>
+        <br>
+
+         <!--图表-->
+        <div id="main" style="width: 800px;height: 400px;"></div>
+
+
+    </div>
+</div>

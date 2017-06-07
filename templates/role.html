@@ -1,0 +1,199 @@
+<!--系统设置  角色管理-->
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        角色管理
+    </div>
+    <div class="panel-body">
+        <div class="form-group">
+            <div class="col-md-11"></div>
+            <div class="col-md-1">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal2"
+                        ng-click="addContent()"
+                >新增</button>
+                <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                        aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" >新增角色</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div>角色名：<input type="text" ng-model="modelAddRoleName"></div>
+                                <div>
+                                    <p>子系统访问：</p>
+                                    <label class="checkbox-inline" ng-repeat="v in modelArr | filter:{'code':'!.'}">
+                                        <input type="checkbox"  value="option1" ng-model="v.isSelect"> {{v.name}}
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <p>婚丧：</p>
+                                    <label class="checkbox-inline" ng-repeat="v in modelArr | filter:{'code':'1.'}">
+                                        <input type="checkbox"  value="option1" ng-model="v.isSelect"> {{v.name}}
+                                    </label>
+                                </div>
+                                <div>
+                                    <p>投诉：</p>
+                                    <label class="checkbox-inline" ng-repeat="v in modelArr | filter:{'code':'2.'}">
+                                        <input type="checkbox"  value="option1" ng-model="v.isSelect"> {{v.name}}
+                                    </label>
+                                </div>
+                                <div>
+                                    <p>廉政教育：</p>
+                                    <label class="checkbox-inline" ng-repeat="v in modelArr | filter:{'code':'3.'}">
+                                        <input type="checkbox"  value="option1" ng-model="v.isSelect"> {{v.name}}
+                                    </label>
+                                </div>
+                                <div>
+                                    <p>系统设置：</p>
+                                    <label class="checkbox-inline" ng-repeat="v in modelArr | filter:{'code':'4.'}">
+                                        <input type="checkbox" value="option1" ng-model="v.isSelect"> {{v.name}}
+                                    </label>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="modal-footer ">
+                                <div class="col-md-2">
+                                </div>
+                                <button class="btn btn-primary col-md-8" data-dismiss="modal" ng-click="submitContent()">
+                                    确定
+                                </button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="tab">
+            <table class="table table-striped table-bordered" id="dataTable" >
+                <thead >
+                <tr>
+                    <td class="col-md-10">
+                        <div class="btn-group">
+                            <a>角色名</a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                               aria-expanded="false">
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li ng-click="order('name',1)"><a>正序</a></li>
+                                <li ng-click="order('name',-1)"><a>倒序</a></li>
+                                <li class="dropdown-submenu"><a>列</a>
+                                    <ul class="dropdown-menu pull-right">
+                                        <li><input type="checkbox">角色名</li>
+                                        <li><input type="checkbox">action</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                    <td class="col-md-2">
+                        <div class="btn-group">
+                            <a>操作</a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                               aria-expanded="false">
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a>正序</a></li>
+                                <li><a>倒序</a></li>
+                                <li class="dropdown-submenu"><a>列</a>
+                                    <ul class="dropdown-menu pull-right">
+                                        <li><input type="checkbox">角色名</li>
+                                        <li><input type="checkbox">action</li>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="v in arr">
+                    <td ng-bind="v.name"></td>
+                    <td>
+                        <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal1"
+                                ng-click="showContent(v.id)">
+                            修改
+                        </button>
+                        <button class="btn btn-danger btn-xs" ng-click="deleteRole(v.id)">删除
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">修改角色</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div>角色名：<input type="text" ng-model="modelCurrentRoleName"></div>
+                            <div>
+                                <p>子系统访问：</p>
+                                <label class="checkbox-inline" ng-repeat="v in modelArr | filter:{'code':'!.'}">
+                                    <input type="checkbox"  value="option1" ng-model="v.isSelect"> {{v.name}}
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <p>婚丧：</p>
+                                <label class="checkbox-inline col-xs-3" ng-repeat="v in modelArr | filter:{'code':'1.'}">
+                                    <input type="checkbox"  value="option1" ng-model="v.isSelect"> {{v.name}}
+                                </label>
+                            </div>
+                            <div>
+                                <p>投诉：</p>
+                                <label class="checkbox-inline" ng-repeat="v in modelArr | filter:{'code':'2.'}">
+                                    <input type="checkbox"  value="option1" ng-model="v.isSelect"> {{v.name}}
+                                </label>
+                            </div>
+                            <div>
+                                <p>廉政教育：</p>
+                                <label class="checkbox-inline col-xs-3" ng-repeat="v in modelArr | filter:{'code':'3.'}">
+                                    <input type="checkbox"  value="option1" ng-model="v.isSelect"> {{v.name}}
+                                </label>
+                            </div>
+                            <div>
+                                <p>系统设置：</p>
+                                <label class="checkbox-inline" ng-repeat="v in modelArr | filter:{'code':'4.'}">
+                                    <input type="checkbox" value="option1" ng-model="v.isSelect"> {{v.name}}
+                                </label>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="modal-footer ">
+                            <div class="col-md-2">
+
+                            </div>
+                            <button class="btn btn-primary col-md-8" data-dismiss="modal" ng-click="updateContent()">
+                                确定
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div><!-- /main-container -->
+    </div>
+    <div class="panel-footer">
+         <span>
+        <i class="btn fa fa-step-backward fa-lg fa-fw" ng-click="firstPage()"></i>
+        <i class="btn fa fa-caret-left fa-lg fa-fw" ng-click="prePage()"></i>
+        &nbsp  | &nbsp 第 {{o.page}} 页，共{{pageSum}}页 &nbsp | &nbsp
+        <i class="btn fa fa-caret-right fa-lg fa-fw" ng-click="nextPage()"></i>
+        <i class="btn fa fa-step-forward fa-lg fa-fw" ng-click="lastPage()"></i>
+        &nbsp | &nbsp
+        <i class="btn fa fa-refresh fa-lg fa-fw" ng-click="refreshPage()"></i>
+        </span>
+        <span class="pull-right">显示{{1+(o.page-1)*9}}-{{o.page*o.limit}}条，共{{total}}条</span>
+    </div>
+</div>

@@ -1,0 +1,183 @@
+<div class="panel panel-default" style="margin-bottom: 0">
+    <div style="padding-top: 5px;padding-bottom: 5px" class="panel-heading">
+        <h4>申报</h4>
+    </div>
+    <div class="panel-body">
+        <form name="report" class="form-horizontal form-inline" role="form" novalidate>
+            <fieldset>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <div class="col-xs-3">
+                            <div class="form-group "
+                                 ng-class="{'has-error':report.$submitted&&report.staff.$error.required}">
+                                <label class="control-label">申报人:</label>
+                                <input name="staff" ng-model="o.staff" required class="form-control" type="text"
+                                       placeholder='必填项'/>
+                            </div>
+                        </div>
+                        <div class="col-xs-3">
+                            <div class="form-group">
+                                <label class=" control-label"
+                                       style="padding-right:0px;padding-left:0px;">与申报人关系:</label>
+                                <select class="form-control" ng-change="staffRelationshipMake(rel)"
+                                        ng-model="rel" ng-options="o.v for o in staffRelationshipArr">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-3">
+                            <div class="form-group">
+                                <label class="control-label">政治面貌:</label>
+                                <input class="form-control" ng-model="o.staffPoliticalStatus" type="text"
+                                       placeholder=""/>
+                            </div>
+                        </div>
+                        <div class="col-xs-3">
+                            <div class="form-group">
+                                <label class=" control-label">单位职务:</label>
+                                <select class="form-control" ng-change="staffJobMake(job)"
+                                        ng-model="job" ng-options="o.v for o in staffJobArr">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="col-xs-3">
+                            <div class="form-group ">
+                                <label class=" control-label">配偶:</label>
+                                <input class="form-control" ng-model="o.staffSpouse" type="text" placeholder=""/>
+                            </div>
+                        </div>
+                        <div class="col-xs-3">
+                            <div class="form-group"
+                                 ng-class="{'has-error':report.$submitted&&report.staffPhone.$error.required}">
+                                <label class=" control-label">联系电话:</label>
+                                <input class="form-control" name="staffPhone" ng-model="o.staffPhone" required
+                                       type="text" placeholder="必填项"/>
+                            </div>
+                        </div>
+                        <div class="col-xs-3">
+                            <div class="form-group">
+                                <label class=" control-label">操办事项:</label>
+                                <select class="form-control" ng-change="eventTypeMake(event)"
+                                        ng-model="event" ng-options="o.v for o in eventTypeArr">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-3">
+                            <div class="form-group">
+                                <label class=" control-label">操办次数:</label>
+                                <input class="form-control" name="eventCount" min="1" ng-model="o.eventCount"
+                                       type="number" placeholder=""/>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="col-xs-3">
+                            <div class="form-group ">
+                                <label class=" control-label">操办时间:</label>
+                                <input class="form-control" ng-model="initDate" type="date" placeholder=""/>
+                            </div>
+                        </div>
+                        <div class="col-xs-3">
+                            <div class="form-group"
+                                 ng-class="{'has-error':report.$submitted&&report.location.$error.required}">
+                                <label class=" control-label">操办地点:</label>
+                                <input class="form-control" name="location" ng-model="o.location" required type="text"
+                                       placeholder="必填项"/>
+                            </div>
+                        </div>
+                        <div class="col-xs-3">
+                            <div class="form-group">
+                                <label class=" control-label">操办桌数:</label>
+                                <input class="form-control" name="tableCount" min="1" ng-model="o.tableCount"
+                                       type="number" placeholder=""/>
+                            </div>
+                        </div>
+                        <div class="col-xs-3">
+                            <div class="form-group" ng-class="{'has-error':report.peopleCount.$error.max}">
+                                <label class=" control-label">参加人数:</label>
+                                <input class="form-control" name="peopleCount" min="1" max="200"
+                                       ng-model="o.peopleCount" type="number" placeholder=""/>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="col-xs-3">
+                            <div class="form-group ">
+                                <label class=" control-label">邀请范围:</label>
+                                <input class="form-control" ng-model="o.peopleRange" type="text" placeholder=""/>
+                            </div>
+                        </div>
+                        <div class="col-xs-3">
+                            <div class="form-group">
+                                <label class=" control-label">用车数量:</label>
+                                <input class="form-control" name="carCount" min="1" ng-model="o.carCount" type="number"
+                                       placeholder=""/>
+                            </div>
+                        </div>
+                        <div class="col-xs-3">
+                            <div class="form-group"
+                                 ng-class="{'has-error':report.$submitted&&report.carSource.$error.required}">
+                                <label class=" control-label">用车来源:</label>
+                                <input class="form-control" name="carSource" ng-model="o.carSource" required type="text"
+                                       placeholder="必填项"/>
+                            </div>
+                        </div>
+                        <div class="col-xs-3">
+                            <div class="form-group">
+                                <label class=" control-label">所属部门:</label>
+                                <select class="form-control" ng-change="staffOrgIdMake(org)" ng-model="org"
+                                        ng-options="(o.children?('--'+o.name):(o.name)) for o in staffOrgIdArr">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="col-xs-12">
+                            <div class="form-group ">
+                                <label class=" control-label">邀请名单:</label>
+                                <!--<input name="files" class="form-control" ng-model="o.attachmentFileCode" type="file" placeholder=""/>-->
+                                <!--<input name="files" class="form-control" ng-model="o.attachmentFileCode" type="file" ngf-multiple="true" placeholder=""/>-->
+
+                                <input id="feteList" name="feteList" type="text" class="form-control"
+                                       ng-model="o.attachmentFileCode[0].name" ng-disabled="o.attachmentFileCode[0].name"/>
+                            </div>
+
+                            <div class=" btn btn-default form-control" ngf-select ng-model="o.attachmentFileCode"
+                                 name="files" ngf-multiple="true">Brower...
+                            </div>
+                            <!--<div class="button" ngf-select ng-model="file" name="file" ngf-pattern="'image/*" accept="image/*" ngf-max-size="20MB" ngf-min-height="100">Select</div>-->
+                        </div>
+
+
+
+                        <div class="clear"></div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="col-xs-6">
+                            <div class="form-group">
+                                <label class=" control-label">本人承诺:</label>
+                                <textarea class="form-control" ng-model="o.selfPromise" rows="3" cols="58"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="form-group">
+                                <label class=" control-label">承诺人:</label>
+                                <input class="form-control" ng-model="o.promisePeople" type="text" placeholder=""/>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </li>
+                </ul>
+                <button type="submit" ng-click="reportSubmit()" class="btn btn-primary 2 col-xs-2 col-xs-offset-5">提交
+                </button>
+            </fieldset>
+        </form>
+    </div>
+</div>
+
+

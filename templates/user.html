@@ -1,0 +1,299 @@
+<!--系统设置 用户管理-->
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        用户管理
+    </div>
+    <div class="panel-body">
+        <div class="form-group">
+            <div class="col-md-11"></div>
+            <div class="col-md-1">
+                <button class="btn btn-primary" data-toggle="modal" data-target="#myModal" ng-click="newAdd()">
+                    新增
+                </button>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+             aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"
+                                aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">添加用户</h4>
+                    </div>
+                        <form class="form-horizontal" name="addUserModal" novalidate>
+                            <div class="modal-body">
+                            <div class="form-group"
+                                 ng-class="{'has-error':addUserModal.username.$error.required && addUserModal.$submitted}">
+                                <label for="inputEmail3" class="col-sm-2 control-label">用户名：</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="username"
+                                           ng-model="addData.username" placeholder="" required>
+                                    <span ng-show="addUserModal.username.$error.required && addUserModal.$submitted">用户名不能为空</span>
+                                </div>
+                            </div>
+                            <div class="form-group"
+                                 ng-class="{'has-error':addUserModal.name.$error.required && addUserModal.$submitted}">
+                                <label for="inputPassword3" class="col-sm-2 control-label">姓名：</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="name"
+                                           ng-model="addData.name" placeholder="" required>
+                                    <span ng-show="addUserModal.name.$error.required && addUserModal.$submitted">姓名不能为空</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-2 control-label">部门：</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control" ng-model="addData.orgId"
+                                            ng-options="dep.id as dep.name for dep in department"></select>
+                                </div>
+                            </div>
+                            <div class="form-group"
+                                 ng-class="{'has-error':addUserModal.password.$error.required && addUserModal.$submitted}">
+                                <label for="inputPassword3" class="col-sm-2 control-label">密码：</label>
+                                <div class="col-sm-10">
+                                    <input type="password" class="form-control" name="password"
+                                           ng-model="addData.password" placeholder="" required>
+                                    <span ng-show="addUserModal.password.$error.required && addUserModal.$submitted">密码不能为空</span>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-class="{'has-error':addUserModal.surePassword.$error.required && addUserModal.$submitted || (addData.password != surePassword && !addUserModal.surePassword.$error.require && addUserModal.$submitted)}">
+                                <label for="inputEmail3" class="col-sm-2 control-label">确认密码：</label>
+                                <div class="col-sm-10">
+                                    <input type="password" class="form-control" name="surePassword"
+                                           ng-model="surePassword" placeholder="" required>
+                                    <span ng-show="addUserModal.password.$error.required && addUserModal.$submitted">密码不能为空</span>
+                                    <span ng-show="(addData.password != surePassword)&& !addUserModal.password.$error.required && addUserModal.$submitted">两次密码不一致</span>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-class="{'has-error':addUserModal.roleId.$error.required && addUserModal.$submitted}">
+                                <label for="inputPassword3" class="col-sm-2 control-label">角色：</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control" id="inputPassword4"
+                                            ng-model="addData.roleId" name="roleId"
+                                            ng-options="role.id as role.name for role in roles" required></select>
+                                    <span ng-show="addUserModal.roleId.$error.required && addUserModal.$submitted">角色不能为空</span>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <div class="row">
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-8">
+                                        <button type="submit" class="btn btn-primary"
+
+                                               ng-click="(addUserModal.$valid && addData.password == surePassword) ? sureAdd() : '' " style="width: 100%">
+                                            提交
+                                            </button>
+                                    </div>
+                                    <div class="col-md-2"></div>
+                                </div>
+                            </div>
+                            </div>
+                        </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab">
+            <table class="table table-striped table-bordered" id="dataTable">
+                <thead>
+                <tr>
+                    <td>
+                        <div class="btn-group">
+                            <a>用户名</a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                               aria-expanded="false">
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li ng-click="order('userManage',1)"><a>正序</a></li>
+                                <li ng-click="order('userManage',-1)"><a>倒序</a></li>
+                                <li class="dropdown-submenu"><a>列</a>
+                                    <ul class="dropdown-menu pull-right">
+                                        <li><input type="checkbox">用户名</li>
+                                        <li><input type="checkbox">姓名</li>
+                                        <li><input type="checkbox">部门</li>
+                                        <li><input type="checkbox">action</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="btn-group">
+                            <a>姓名</a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                               aria-expanded="false">
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li ng-click="order('username',1)"><a>正序</a></li>
+                                <li ng-click="order('username',-1)"><a>倒序</a></li>
+                                <li class="dropdown-submenu"><a >列</a>
+                                    <ul class="dropdown-menu pull-right">
+                                        <li><input type="checkbox">用户名</li>
+                                        <li><input type="checkbox">姓名</li>
+                                        <li><input type="checkbox">部门</li>
+                                        <li><input type="checkbox">action</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="btn-group">
+                            <a>部门</a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                               aria-expanded="false">
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li ng-click="order('orgName',1)"><a>正序</a></li>
+                                <li ng-click="order('orgName',-1)"><a>倒序</a></li>
+                                <li class="dropdown-submenu"><a >列</a>
+                                    <ul class="dropdown-menu pull-right">
+                                        <li><input type="checkbox">用户名</li>
+                                        <li><input type="checkbox">姓名</li>
+                                        <li><input type="checkbox">部门</li>
+                                        <li><input type="checkbox">action</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="btn-group">
+                            <a>操作</a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                               aria-expanded="false">
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a>正序</a></li>
+                                <li><a>倒序</a></li>
+                                <li class="dropdown-submenu"><a>列</a>
+                                    <ul class="dropdown-menu pull-right">
+                                        <li><input type="checkbox">用户名</li>
+                                        <li><input type="checkbox">姓名</li>
+                                        <li><input type="checkbox">部门</li>
+                                        <li><input type="checkbox">action</li>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr ng-repeat="user in userManage">
+                    <td>{{user.username}}</td>
+                    <td>{{user.name}}</td>
+                    <td>{{user.orgName}}</td>
+                    <td>
+                        <button class="btn btn-primary " data-toggle="modal" data-target="#myModals" ng-click="modify()">
+                            修改
+                        </button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="myModals" tabindex="-1" role="dialog"
+                             aria-labelledby="myModalLabel">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close"><span
+                                                aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="myModalLabels">修改用户</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form class="form-horizontal">
+                                            <div class="form-group">
+                                                <label for="inputEmail3" class="col-sm-2 control-label">用户名：</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control"
+                                                           ng-model="dataModifyList.username" placeholder="用户名"
+                                                           readonly="readonly">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputPassword3" class="col-sm-2 control-label">姓名：</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control"
+                                                           ng-model="dataModifyList.name" placeholder="姓名">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputEmail3" class="col-sm-2 control-label">部门：</label>
+                                                <div class="col-sm-10">
+                                                    <select class="form-control" ng-model="dataModifyList.orgId"
+                                                            ng-options="dep.id as dep.name for dep in department"></select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputPassword3" class="col-sm-2 control-label">密码：</label>
+                                                <div class="col-sm-10">
+                                                    <input type="password" class="form-control" placeholder="密码为空则不修改">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputEmail3" class="col-sm-2 control-label">确认密码：</label>
+                                                <div class="col-sm-10">
+                                                    <input type="password" class="form-control" id="inputEmail3"
+                                                           placeholder="密码为空则不修改">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputPassword3" class="col-sm-2 control-label">角色：</label>
+                                                <div class="col-sm-10">
+                                                    <select class="form-control" id="inputPassword3"
+                                                            ng-model="dataModifyList.roleId"
+                                                            ng-options="role.id as role.name for role in roles"></select>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <div class="row">
+                                            <div class="col-md-2"></div>
+                                            <div class="col-md-8">
+                                                <button type="button" class="btn btn-primary" data-dismiss="modal"
+                                                        ng-click="sureModify()"
+                                                        style="width: 100%">确定
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-danger " ng-click="sureDelete()">删除</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div><!-- /main-container -->
+
+
+    </div>
+    <div class="panel-footer">
+        <span>
+        <i class="btn fa fa-step-backward fa-lg fa-fw" ng-click="accurateFirst()"></i>
+        <i class="btn fa fa-caret-left fa-lg fa-fw" ng-click="accurateUp()"></i>
+        &nbsp  | &nbsp 第 {{userPageNow}} 页，共{{userPageTotal}}页 &nbsp | &nbsp
+       <i class="btn fa fa-caret-right fa-lg fa-fw" ng-click="accurateDown()"></i>
+        <i class="btn fa fa-step-forward fa-lg fa-fw" ng-click="accurateLast()"></i>
+        &nbsp | &nbsp
+        <i class="btn fa fa-refresh fa-lg fa-fw" ng-click="accuratePageBack()"></i>
+        </span>
+        <span class="pull-right">显示1-{{dataList}}条，共{{userTotal}}条</span>
+
+
+
+    </div>
+</div>
